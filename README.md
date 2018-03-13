@@ -1,8 +1,8 @@
 # Canvas-Workshop
 ## The game's HTML
 ### Del 1
-The HTML document structure is quite simple,
-the game will be rendered entirely on the canvas element. Using your favourite text editor,create a new HTML document, save it as index.html, in a sensible location, and add the following code to it:
+Spillets HTML
+HTML-dokumentstruktur er ganske enkel, som spillet bliver gengivet helt på elementet < lærred > . Ved hjælp af din foretrukne teksteditor, oprette en ny HTML-dokument, gemme det som en fornuftig beliggenhed og tilføje følgende kode til det:index.html
 
 ```html
 <!DOCTYPE html>
@@ -31,14 +31,18 @@ We have a charset defined, title and some basic CSS in the header. The body cont
 
 ## Canvas basics
 
-To actually be able to render graphics on the canvas element, first we have to grab a reference to it in JavaScript. Add the following below your opening script tag.
+Vi har en defineret, < titel > og nogle grundlæggende CSS i hovedet. Kroppen indeholder < lærred > og < script > elementer – vi vil gøre spillet inde den første sig og skrive den JavaScript-kode, der styrer det i den anden. Elementet < lærred > har en af så vi kan nemt få fat i en henvisning til det, og det er 480 pixel bred og 320 pixel høj. Alle de JavaScript-kode, vi vil skrive i denne tutorial vil gå mellem start- og slutkoder.charsetidmyCanvas<script></script>
+
+Lærred basics
+Du kan faktisk være i stand til at gøre grafik på elementet < lærred > , skal vi først få fat i en henvisning til det i JavaScript. Tilføj følgende under din åbning tag.<script>
+
 ```javascript
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 ```
 
-Here we're storing a reference to the canvas element to the canvas variable. Then we're creating the ctx variable to store the 2D rendering context — the actual tool we can use to paint on the Canvas.
-Let's see an example piece of code that prints a red square on the canvas. Add this below your previous lines of JavaScript, then load your index.html in a browser to try it out.
+Her vi lagring af en henvisning til elementet < lærred > til variablen. Så vi skaber variablen for at gemme 2D rendering forbindelse — den faktiske værktøj, vi kan bruge til at male på lærred.canvasctx
+Lad os se en eksempel stykke kode, der udskriver en rød firkant på lærredet. Tilføje dette under din tidligere linjer af JavaScript, så indlæse din i en gennemser hen til prøve sig ud.index.html
 
 ```javascript
 ctx.beginPath();
@@ -48,8 +52,9 @@ ctx.fill();
 ctx.closePath();
 ```
 
-All the instructions are between the beginPath() and closePath() methods. We are defining a rectangle using rect(): the first two values specify the coordinates of the top left corner of the rectangle on the canvas, while the second two specify the width and height of the rectangle. In our case the rectangle is painted 20 pixels from the left side of the screen and 40 pixels from the top side, and is 50 pixels wide and 50 pixels high, which makes it a perfect square. The fillStyle property stores a color that will be used by the fill() method to paint the square, in our case, red.
-We're not limited to rectangles — here's a piece of code for printing out a green circle. Try adding this to the bottom of your JavaScript, saving and refreshing:
+Alle anvisninger er mellem metoderne beginPath() og closePath() . Vi definerer et rektangel ved hjælp af rect(): de første to værdier angiver koordinaterne for det øverste venstre hjørne af rektanglet på lærredet, mens de anden to angive bredden og højden af rektanglet. I vores tilfælde rektanglet er malet 20 pixels fra venstre side af skærmen og 40 pixels fra oversiden, og er 50 pixel bred og 50 pixel høj, hvilket gør det til et perfekt kvadrat. Egenskaben fillStyle gemmer en farve, der bruges af metoden fill() til at male pladsen i vores tilfælde, rød.
+Vi er ikke begrænset til rektangler – her er et stykke kode til udskrift en grøn cirkel. Prøv at tilføje dette til bunden af din JavaScript besparelse og forfriskende:
+
 ```javascript
 ctx.beginPath();
 ctx.arc(240, 160, 20, 0, Math.PI*2, false);
@@ -58,13 +63,13 @@ ctx.fill();
 ctx.closePath();
 ```
 
-As you can see we're using the beginPath() and closePath() methods again. Between them, the most important part of the code above is the arc() method. It takes six parameters:
-x and y coordinates of the arc's center
-arc radius
-start angle and end angle (what angle to start and finish drawing the circle, in radians)
-direction of drawing (false for clockwise, the default, or true for anti-clockwise.) This last parameter is optional.
-The fillStyle property looks different than before. This is because, just as with CSS, color can be specified as a hexadecimal value, a color keyword, the rgba() function, or any of the other available color methods.
-Instead of using fill() and filling the shapes with colors, we can use stroke() to only colour the outer stroke. Try adding this code to your JavaScript too:
+Som du kan se bruger vi metoderne beginPath() og closePath() igen. Mellem dem er den vigtigste del af koden ovenfor arc() metoden. Det tager seks parametre:
+x og koordinater af arc's centery
+ARC radius
+Start vinkel og vinklet afslutning (hvad vinkel at starte og afslutte tegning cirkel, i radianer)
+retning af tegning (for uret, standard, eller for mod uret.) Denne sidste parameter er valgfri.falsetrue
+Egenskaben fillStyle ser anderledes ud end før. Dette er da bare med CSS, farve kan være angivet som en hexadecimal værdi, en farve nøgleord, funktionen, eller nogen af de andre metoder, tilgængelig farve.rgba()
+I stedet for ved hjælp af fill() og fylde figurer med farver, kan vi bruge stroke() til at kun farve den ydre slagtilfælde. Prøv at tilføje denne kode til din JavaScript for:
 
 ```javascript
 ctx.beginPath();
@@ -74,45 +79,21 @@ ctx.stroke();
 ctx.closePath();
 ```
 
-The code above prints a blue-stroked empty rectangle. Thanks to the alpha channel in the rgba() function, the blue color is semi transparent.
+Ovenstående kode udskriver en blå-strøg tomt rektangel. Takket være alfakanalen i funktionen er den blå farve semi gennemsigtige.rgba()
 
-## Compare your code
-
-Here's the full source code of the first lesson, running live in a JSFiddle:
-
-```javascript
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
-
-ctx.beginPath();
-ctx.rect(20, 40, 50, 50);
-ctx.fillStyle = "#FF0000";
-ctx.fill();
-ctx.closePath();
-
-ctx.beginPath();
-ctx.arc(240, 160, 20, 0, Math.PI*2, false);
-ctx.fillStyle = "green";
-ctx.fill();
-ctx.closePath();
-
-ctx.beginPath();
-ctx.rect(160, 10, 100, 40);
-ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
-ctx.stroke();
-ctx.closePath();
-```
-
-Next steps
-Now we've set up the basic HTML and learned a bit about canvas, lets continue to the second chapter and work out how to Move the ball in our game.
+Næste trin
+Nu vi har defineret den grundlæggende HTML og lært lidt om lærred, kan fortsætte med at det andet kapitel og arbejde ud af at flytte bolden i vores spil.
 
 ### Del 2
 
-This is the 2nd step out of 10 of the Gamedev Canvas tutorial.
+Det er 2 skridt ud af 10 af Gamedev lærred tutorial. Du kan finde kildekoden, som det skal se efter endt denne lektion på Gamedev-lærred-workshop/lesson2.html.
 
-Defining a drawing loop
-To keep constantly updating the canvas drawing on each frame, we need to define a drawing function that will run over and over again, with a different set of variable values each time to change sprite positions, etc. You can run a function over and over again using a JavaScript timing function such as setInterval() or requestAnimationFrame().
-Delete all the JavaScript you currently have inside your HTML file except for the first two lines, and add the following below them. The draw() function will be executed within setInterval every 10 miliseconds:
+Du kender allerede hvordan man tegner en bold fra arbejde gennem den foregående artikel, så nu, lad os gøre det gå. Teknisk, vi vil male bolden på skærmen, fjerne det og derefter male den igen i en lidt anden position hver ramme for at gøre indtryk bevægelighed — ligesom hvordan bevægelse arbejder med film.
+
+### Definere en tegning løkke
+
+For at holde konstant opdaterer lærredet tegning på hver ramme, vi har brug at definere en tegning funktioner, der vil køre igen og igen med et andet sæt af variable værdier hver gang for at ændre sprite holdninger, osv. Igen og igen ved hjælp af en JavaScript timing funktion som setInterval () eller requestAnimationFrame(), kan du køre en funktion.
+Slette alle de JavaScript, du har i øjeblikket inde i din HTML-fil med undtagelse af de to første linjer, og Tilføj følgende under dem. Funktionen udføres inden for hver 10 miliseconds:draw()setInterval
 
 ```javascript
 
@@ -122,7 +103,7 @@ function draw() {
 setInterval(draw, 10);
 ```
 
-Thanks to the infinite nature of setInterval the draw() function will be called every 10 milliseconds forever, or until we stop it. Now, let's draw the ball — add the following inside your draw() function:
+Takket være den uendelige karakter af funktionen vil blive kaldt hver 10 millisekunder for evigt, eller indtil vi stoppe den. Nu, lad os trække bolden — skal du tilføje følgende i din funktion:setIntervaldraw()draw()
 
 ```javascript
 ctx.beginPath();
@@ -132,16 +113,17 @@ ctx.fill();
 ctx.closePath();
 ```
 
-Try your updated code now — the ball should be repainted on every frame.
-Making it move
-You won't notice the ball being repainted constantly at the moment, as it's not moving. Let's change that. First, instead of a hardcoded position at (50,50) we will define a starting point at the bottom center part of the Canvas in variables called x and y, then use those to define the position the circle is drawn at.
-First, add the following two lines above your draw() function, to define x and y:
+### Få den til at bevæge sig
+
+Du vil ikke mærke bolden bliver malet hele tiden i øjeblikket, da det ikke er i bevægelse. Lad os ændre. Først, i stedet for en hardcodede position på (50,50) vi vil definere et udgangspunkt på den nederste midterste del af lærredet i variabler hedder og derefter bruge dem til at definere positionen cirklen er tegnet på.xy
+Først, sammenlægge den næste to linier over din funktion, at definere og:draw()xy
 
 ```javascript
 var x = canvas.width/2;
 var y = canvas.height-30;
 ```
-Next update the draw() function to use the x and y variables in the arc() method, as shown in the following highlighted line:
+
+Næste opdatere funktionen til brug af x og y variabler i metoden arc() , som vist i den følgende markerede linje:draw()
 
 ```javascript
 function draw() {
@@ -153,14 +135,14 @@ function draw() {
 }
 ```
 
-Now comes the important part: we want to add a small value to x and y after every frame has been drawn to make it appear that the ball is moving. Let's define these small values as dx and dy and set their values to 2 and -2 respectively. Add the following below your x and y variable definitions:
+Nu kommer den vigtige del: vi ønsker at tilføje en lille værdi og efter hver frame er udarbejdet for at gøre det ud til, at bolden er i bevægelse. Lad os definere disse små værdier som og og sat deres værdier til 2 og -2 henholdsvis. Tilføj følgende under din x og y variable definitioner:xydxdy
 
 ```javascript
 var dx = 2;
 var dy = -2;
 ```
 
-The last thing to do is to update x and y with our dx and dy variable on every frame, so the ball will be painted in the new position on every update. Add the following two new lines indicated below to your draw() function:
+Den sidste ting at gøre er at opdatere og med vores og variable på hver ramme, så bolden vil være malet i den nye stilling på hver opdatering. Tilføj følgende to nye linjer angivet nedenfor for at din funktion:xydxdydraw()
 
 ```javascript
 function draw() {
@@ -174,11 +156,12 @@ function draw() {
 }
 ```
 
-Save your code again and try it in your browser. This works ok, although it appears that the ball is leaving a trail behind it:
+Gem din kode igen og prøve det i din browser. Det virker ok, selv om det synes at bolden forlader en trail bag det:
 
-Clearing the canvas before each frame
-The ball is leaving a trail because we're painting a new circle on every frame without removing the previous one. Don't worry, because there's a method to clear canvas content: clearRect(). This method takes four parameters: the x and y coordinates of the top left corner of a rectangle, and the x and y coordinates of the bottom right corner of a rectangle. The whole area covered by this rectangle will be cleared of any content previously painted there.
-Add the following highlighted new line to the draw() function:
+### Clearing lærred før hver ramme
+
+Bolden er efterlader et spor, fordi vi maler en ny cirkel på hver ramme uden at fjerne den tidligere en. Må ikke bekymre dig, fordi der er en metode til at rydde lærred indhold: clearRect(). Denne metode tager fire parametre: x og y koordinater for den øverste venstre hjørne af et rektangel, og x og y koordinater i nederste højre hjørne af et rektangel. Hele området er omfattet af dette rektangel ryddes af indhold tidligere malet der.
+Tilføj følgende fremhævet nye linje til funktionen:draw()
 
 ```javascript
 function draw() {
@@ -193,10 +176,12 @@ function draw() {
 }
 ```
 
-Save your code and try again, and this time you'll see the ball move without a trail. Every 10 milliseconds the canvas is cleared, the blue circle (our ball) will be drawn on a given position and the x and y values will be updated for the next frame.
-Cleaning up our code
-We will be adding more and more commands to the draw() function in the next few articles, so it's good to keep it as simple and clean as possible. Let's start by moving the ball drawing code to a separate function.
-Replace the existing draw() function with the following two functions:
+Gem din kode og prøv igen, og denne gang du vil se bolden bevæge sig uden et spor. Hver 10 millisekunder lærredet er ryddet, den blå cirkel (vores bold) vil blive trukket på en given position og den og værdier vil blive opdateret til den næste ramme.xy
+
+### Ryd op i vores kode
+
+Vi vil være tilføjer mere og mere kommandoer til at fungere i næste par artikler, så det er godt at holde det så simpelt og ren som muligt. Lad os starte ved at flytte bolden tegning kode til en særskilt funktion.draw()
+Erstatte funktionen eksisterende draw() med de følgende to funktioner:
 
 ```javascript
 function drawBall() {
@@ -214,23 +199,24 @@ function draw() {
     y += dy;
 }
 ```
+Øvelse: Prøv at ændre hastigheden på den bevægelige bold, eller den retning, den bevæger sig i.
 
-Next steps:
-We've drawn our ball and gotten it moving, but it keeps disappearing off the edge of the canvas. In the third chapter we'll explore how to make it bounce off the walls.
+Næste trin
+Vi har trukket vores bold og fået det bevæger sig, men det holder forsvinde ud over kanten af lærredet. I det tredje kapitel vil vi undersøge, hvordan at gøre det hoppe fra væggene.
 
 ### Del 3
-Simple collision detection
-To detect the collision we will check whether the ball is touching (colliding with) the wall, and if so, we will change the direction of its movement accordingly.
-To make the calculations easier let's define a variable called ballRadius that will hold the radius of the drawn circle and be used for calculations. Add this to your code, somewhere below the existing variable declarations:
-var ballRadius = 10;
 
-Now update the line that draws the ball inside the drawBall() function to this:
+Simpel sammenstød afsløring
+At opdage de sammenstød, vi vil kontrollere, om bolden rører (kolliderede med) muren, og hvis så, vi vil ændre retningen af dens bevægelse i overensstemmelse hermed.
+For at gøre beregningerne lettere Lad os definere en variabel kaldet, der vil holde radius af den tegnede cirkel og bruges til beregninger. Tilføj dette til din kode, et sted under de eksisterende variable erklæringer:ballRadius
 
 ```javascript
 ctx.arc(x, y, ballRadius, 0, Math.PI*2);
 ```
-Bouncing off the top and bottom
-There are four walls to bounce the ball off — let's focus on the top one first. We need to check, on every frame, whether the ball is touching the top edge of the Canvas — if yes, we'll reverse the ball movement so it will start to move in the opposite direction and stay within the visible boundaries. Remembering that the coordinate system starts from the top left, we can come up with something like this:
+
+### Hoppe fra top og bund
+
+Der er fire vægge til at hoppe bolden ned — Lad os fokusere på den øverste ene først. Vi skal tjekke på hver frame, uanset om bolden rører den øverste kant af lærredet – hvis ja, vi vil vende bevægelsen bold, så vil det begynde at bevæge sig i den modsatte retning og holde sig inden for de synlige grænser. At huske at koordinatsystemet begynder fra øverst til venstre, kan vi komme med noget som dette:
 
 ```javascript
 if(y + dy < 0) {
@@ -238,8 +224,8 @@ if(y + dy < 0) {
 }
 ```
 
-If the y value of the ball position is lower than zero, change the direction of the movement on the y axis by setting it equal to itself, reversed. If the ball was moving upwards with a speed of 2 pixels per frame, now it will be moving "up" with a speed of -2 pixels, which actually equals to moving down at a speed of 2 pixels per frame.
-The code above would deal with the ball bouncing off the top edge, so now let's think about the bottom edge:
+Hvis bolden position er lavere end nul, ændre retningen af bevægelse på aksen ved at angive det lig med sig selv, tilbageføres. Hvis bolden bevæger sig opad med en hastighed på 2 pixels pr. ramme, vil nu det være omflytning "op" med en hastighed på-2 pixels, hvilket faktisk svarer til bevæger sig ved en hastighed på 2 pixels pr frame.yy
+Ovenstående kode vil beskæftige sig med bolden hoppe fra den øverste kant, så nu lad os tænke over den nederste kant:
 
 ```javascript
 if(y + dy > canvas.height) {
@@ -247,8 +233,8 @@ if(y + dy > canvas.height) {
 }
 ```
 
-If the ball's y position is greater than the height of the Canvas (remember that we count the y values from the top left, so the top edge starts at 0 and the bottom edge is at 480 pixels, the Canvas' height), then bounce it off the bottom edge by reversing the y axis movement as before.
-We could merge those two statements into one to save on code verbosity:
+Hvis boldens position er større end højden af lærredet (Husk at vi tæller værdier fra øverst til venstre, så den øverste kant starter ved 0 og den nederste kant er på 480 pixels, lærred højde), derefter hoppe det ud den nederste kant ved at vende den akse bevægelse en s før.yyy
+Vi kunne sammenlægge de to udsagn i sig at spare på kode verbosity:
 
 ```javascript
 if(y + dy > canvas.height || y + dy < 0) {
@@ -256,9 +242,11 @@ if(y + dy > canvas.height || y + dy < 0) {
 }
 ```
 
-If either of the two statements is true, reverse the movement of the ball.
-Bouncing off the left and right
-We have the top and bottom edge covered, so let's think about the left and right ones. It is very similar actually, all you have to do is to repeat the statements for x instead of y:
+Hvis en af de to erklæringer, vende bevægelsen af bolden.true
+
+### Hoppe fra venstre og højre
+
+Vi har den øverste og nederste kant er dækket, så lad os tænke på venstre og højre ones. Det er faktisk meget lig alt du skal gøre, er at gentage sætninger for i stedet for:xy
 
 ```javascript
 if(x + dx > canvas.width || x + dx < 0) {
@@ -270,11 +258,13 @@ if(y + dy > canvas.height || y + dy < 0) {
 }
 ```
 
-At this point you should insert the above code block into the draw() function, just before the closing curly brace.
-The ball keeps disappearing into the wall!
-Test your code at this point, and you will be impressed — now we have a ball that bounced off all four edges of the canvas! We have another problem however — when the ball hits each wall it sinks into it slightly before changing direction:
+På dette tidspunkt bør du indsætte kodeblokken ovenfor i funktionen draw(), lige før den afsluttende klammeparentes.
 
-This is because we're calculating the collision point of the wall and the center of the ball, while we should be doing it for its circumference. The ball should bounce right after if touches the wall, not when it's already halfway in the wall, so let's adjust our statements a bit to include that. Update the last code you added to this:
+### Bolden holder forsvinde ind i væggen!
+
+Teste din kode på dette punkt, og du vil blive imponeret – nu har vi en bold, der prellede alle fire kanter på lærred! Vi har et andet problem dog — når bolden rammer hver væg, det synker ind i det lidt før du ændrer retning:
+
+Dette er fordi vi beregner kollision punkt i væggen og midten af bolden, mens vi skal gøre det for sin omkreds. Bolden skal hoppe lige efter if rører væggen, ikke når det er allerede halvvejs i væggen, så lad os justere vores erklæringer en smule at medtage der. Opdatere den sidste kode, du har tilføjet til dette:
 
 ```javascript
 if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
@@ -285,12 +275,18 @@ if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) {
 }
 ```
 
-When the distance between the center of the ball and the edge of the wall is exactly the same as the radius of the ball, it will change the movement direction. Subtracting the radius from one edge's width and adding it onto the other gives us the impression of the proper collision detection — the ball bounces off the walls as it should do.
+Når afstanden mellem midten af bolden og kanten af væggen er nøjagtig den samme som radiussen af bolden, vil det ændre den bevægelsesretning. Fratrække radius fra én kant bredde og tilføje det på den anden giver os indtryk af den korrekte kollisions-bolden hopper fra væggene som den bør gøre.
+
+Næste trin
+Vi har nu fået til den fase, hvor vores bold både flytte og opholder sig på brættet. I det fjerde kapitel vil vi kigge på at gennemføre en kontrollerbar pagaj — Se pagaj og tastatur kontrol.
 
 ### Del 4
 
-Defining a paddle to hit the ball
-So, we need a paddle to hit the ball — let's define a few variables for that. Add the following variables near the top of your code, beside your other variables:
+Bolden er hoppende off vægge frit, og du kan se det på ubestemt tid, men i øjeblikket er der ingen interaktivitet. Det er ikke et spil, hvis du ikke kan styre det! Så lad os tilføje nogle brugerinteraktion: en kontrollerbar pagaj.
+
+### Definere en pagaj for at ramme bolden
+
+Så, vi har brug for en pagaj at ramme bolden — Lad os definere et par variabler for at. Tilføj følgende variabler nær toppen af din kode, ved siden af dine andre variabler:
 
 ```javascript
 var paddleHeight = 10;
@@ -298,7 +294,7 @@ var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
 ```
 
-Here we're defining the height and width of the paddle, and its starting point on the x axis, for use in calculations further on down the code. Let's create a function that will draw the paddle on the screen. Add the following just below your drawBall() function:
+Her definerer vi højden og bredden af pagajen og sit udgangspunkt på aksen, til brug i beregninger yderligere på ned koden. Lad os oprette en funktion, der vil trække padle på skærmen. Tilføj følgende lige under din funktion:xdrawBall()
 
 ```javascript
 function drawPaddle() {
@@ -310,27 +306,28 @@ function drawPaddle() {
 }
 ```
 
-Allowing the user to control the paddle
-We can draw the paddle wherever we want, but it should respond to the user's actions — it is time to implement some keyboard controls. We will need:
-Two variables for storing information on whether the left or right control button is pressed.
-Two event listeners for keydown and keyup events — we want to run some code to handle the paddle movement when the buttons are pressed.
-Two functions handling the keydown and keyup events  the code that will be run when the buttons are pressed.
-The ability to move the paddle left and right
-Pressed buttons can be defined and initialized with boolean variables, like so. Add these lines somewhere near the rest of your variables:
+### Tillader brugeren at styre pagajen
+
+Vi kan trække pagajen, uanset hvor vi ønsker, men det bør reagere på brugerens handlinger — det er tid til at gennemføre nogle tastatur kontrol. Vi får brug for:
+To variabler til at gemme oplysninger på om venstre eller højre Ctrl-knappen er trykket.
+To begivenhed lyttere til og events – vi ønsker at køre nogle kode for at håndtere padle bevægelse, når der trykkes på knapperne.keydownkeyup
+To funktioner håndtering af og begivenheder den kode, der køres, når der trykkes på knapperne.keydownkeyup
+Evnen til at flytte padle, venstre og højre
+Pressede knapper kan defineres og initialiseres med boolean variabler, som så. Tilføje disse linjer et sted i nærheden af resten af dine variabler:
 
 ```javascript
 var rightPressed = false;
 var leftPressed = false;
 ```
 
-The default value for both is false because at the beginning the control buttons are not pressed. To listen for key presses, we will set up two event listeners. Add the following lines just above the setInterval() line at the bottom of your JavaScript:
+Standardværdien for begge er fordi i begyndelsen betjeningsknapperne ikke er presset. Hvis du vil lytte til tastetryk, vil vi oprette to begivenhed lyttere. Tilføj følgende linjer lige over linjen nederst i din JavaScript:falsesetInterval()
 
 ```javascript
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 ```
 
-When the keydown event is fired on any of the keys on your keyboard (when they are pressed), the keyDownHandler() function will be executed. The same pattern is true for the second listener: keyup events will fire the keyUpHandler() function (when the keys stop being pressed). Add these to your code now, below the addEventListener() lines:
+Når hændelsen er fyret på en af tasterne på tastaturet (når de presses), udføres funktionen. Det samme mønster gælder for den anden lytter: begivenheder vil brand funktionen (når tasterne holder op med at være trykket). Tilføje disse til din kode nu, under linjerne:keydownkeyDownHandler()keyupkeyUpHandler()addEventListener()
 
 ```javascript
 function keyDownHandler(e) {
@@ -352,10 +349,12 @@ function keyUpHandler(e) {
 }
 ```
 
-When we press a key down, this information is stored in a variable. The relevant variable in each case is set to true. When the key is released, the variable is set back to false.
-Both functions take an event as a parameter, represented by the e variable. From that you can get useful information: the keyCode holds the information about the key that was pressed. For example key code 37 is the left cursor key and 39 is the right cursor. If the left cursor is pressed, then the leftPressed variable is set to true, and when it is released the leftPressed variable is set to false. The same pattern follows with the right cursor and the rightPressed variable.
-The paddle moving logic
-We now have the variables for storing the info about the pressed keys, event listeners and relevant functions set up. Now we'll get onto the actual code to use all that and move the paddle on the screen. Inside the draw() function, we will check if the left or right cursor keys are pressed when each frame is rendered. Our code might look like this:
+Når vi trykker på en tast nede, gemmes oplysningerne i en variabel. Den relevante variabel i hvert enkelt tilfælde er indstillet til. Når nøglen er frigivet, er variablen sat tilbage.truefalse
+Begge funktioner tage en begivenhed som en parameter, repræsenteret af variablen. Fra at du kan få nyttige oplysninger: lastrum oplysninger om den nøgle, der blev trykket på. For eksempel nøglen kode 37 er den venstre markørknap og 39 er højre-cursoren. Hvis venstre markøren er trykket, derefter variablen er indstillet til, og når det er frigivet variablen er angivet til. Det samme mønster følger med højre-cursoren og variablen.ekeyCodeleftPressedtrueleftPressedfalserightPressed
+
+### Padle bevægelse logik
+
+Vi har nu variabler til at gemme info om tasteanslag, begivenhed lyttere og relevante funktioner sat op. Nu får vi ind på selve koden til at bruge alle den og flytte padle på skærmen. Inde i funktionen, vil vi kontrollere, hvis venstre eller højre cursor-tasterne er presset når hvert billede gengives. Vores kode kunne ligne dette:draw()
 
 ```javascript
 if(rightPressed) {
@@ -366,7 +365,7 @@ else if(leftPressed) {
 }
 ```
 
-If the left cursor is pressed, the paddle will move 7 pixels to the left, and if the right cursor is pressed, the paddle will move 7 pixels to the right. This currently works ok, but the paddle disappears off the edge of the canvas if we hold either key for too long. We could improve that and move the paddle only within the boundaries of the Canvas by changing the code as follows:
+Hvis venstre markøren er trykket, padle vil flytte 7 pixels til venstre, og hvis trykkes på højre-cursoren pagajen vil flytte 7 pixel til højre. Dette i øjeblikket virker ok, men padle forsvinder ud over kanten af lærredet hvis vi nede enten alt for længe. Vi kunne forbedre, og flytte padle kun inden for grænserne af lærredet ved at ændre koden som følger:
 
 ```javascript
 if(rightPressed && paddleX < canvas.width-paddleWidth) {
@@ -377,18 +376,24 @@ else if(leftPressed && paddleX > 0) {
 }
 ```
 
-The paddleX position we're using will move between 0 on the left side of the Canvas and canvas.width-paddleWidth on the right hand side, which will work exactly as we want it.
-Add the above code block into the draw() function at the bottom, just above the closing curly brace.
-The only thing left to do now is call the drawPaddle() function from within the draw() function, to actually print it on the screen. Add the following line inside your draw() function, just below the line that calls drawBall():
+Den holdning, vi bruger vil flytte mellem den venstre side af lærredet og på højre side, som vil arbejde præcis som vi ønsker det.paddleX0canvas.width-paddleWidth
+
+Tilføje kodeblokken ovenfor i funktionen nederst lige over den afsluttende klammeparentes.draw()
+
+Den eneste ting tilbage at gøre er nu kalde funktionen fra i funktionen faktisk udskrive det på skærmen. Tilføj følgende linje i din funktion, lige under den linje, der kalder:drawPaddle()draw()draw()drawBall()
 
 ```javascript
 drawPaddle();
 ```
 
+Næste trin
+Nu har vi noget, der ligner et spil; de eneste problemer er nu, at du bare kan fortsætte med at ramme bolden med pagajen for evigt. Dette vil alle ændre i det femte kapitel, Game over, når vi begynder at tilføje i et slutspil state for vores spil.
+
 ### Del 5
 
-Implementing game over
-Let's try to implement game over in our game . Here's the piece of code from the third lesson where we made the ball bounce off the walls:
+### Gennemføre game over
+
+Lad os forsøge at gennemføre spillet i vores spil. Her er stykket kode fra den tredje lektion, hvor vi lavede bolden hoppe fra væggene:
 
 ```javascript
 if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
@@ -400,7 +405,7 @@ if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) {
 }
 ```
 
-Instead of allowing the ball to bounce off all four walls, let's only allow three now — left, top and right. Hitting the bottom wall will end the game. We'll edit the second if block so it's an if else block that will trigger our "game over" state upon the ball colliding with the bottom edge of the canvas. For now we'll keep it simple, showing an alert message and restarting the game by reloading the page. Replace the second if statement with the following:
+I stedet for at lade bolden til at hoppe fra alle fire vægge, lad os tillader kun tre nu – højre, top og venstre. At ramme bunden muren vil afslutte spillet. Vi vil redigere den anden hvis blok så det er en hvis anden blok, der vil udløse vores "game over" tilstand på kuglen kolliderede med den nederste kant af lærredet. For nu vil vi holde det simpelt, viser en advarselsmeddelelse og genstarte spillet ved genindlæsning af siden. Erstatte den anden hvis-sætning med følgende:
 
 ```javascript
 if(y + dy < ballRadius) {
@@ -411,8 +416,9 @@ if(y + dy < ballRadius) {
 }
 ```
 
-Letting the paddle hit the ball
-The last thing to do in this lesson is to create some kind of collision detection between the ball and the paddle, so it can bounce off it and get back into the play area. The easiest thing to do is to check whether the center of the ball is between the left and right edges of the paddle. Update the last bit of code you modified again, to the following:
+### At lade pagajen ramme bolden
+
+Den sidste ting at gøre i denne lektion er at skabe en slags kollisions mellem bolden og pagaj, så det kan hoppe ud det og komme tilbage i afspilningsområdet. Den nemmeste ting at gøre er at kontrollere, om midten af bolden er mellem venstre og højre kanter af pagajen. Opdatere den sidste bid af kode du ændret igen, til følgende:
 
 ```javascript
 if(y + dy < ballRadius) {
@@ -428,12 +434,16 @@ if(y + dy < ballRadius) {
 }
 ```
 
-If the ball hits the bottom edge of the Canvas we need to check whether it hits the paddle . if yes, then it bounces off just like you'd expect; if not then the game is over as before.
+Hvis bolden rammer den nederste kant af lærredet nødt vi til at tjekke om den rammer pagajen. Hvis ja, så springer det ud ligesom du ville forvente; Hvis ikke så er spillet slut som før.
+
+Næste trin
+Vi laver ganske godt hidtil og vores spil er begyndt at føle en masse mere værd at spille nu du kan tabe! Men det stadig mangler noget. Lad os gå videre til den sjette kapitel — bygge feltet mursten — og skabe nogle mursten for bolden at ødelægge.
 
 ### Del 6
 
-Setting up the brick variables
-The overall aim of this lesson is to render a few lines of code for the  bricks, using a nested loop that works through a two-dimensional array. First however we need to set up some variables to define information about the bricks such as their width and height,  rows and columns, etc. Add the following lines to your code below the variables which you have previously declared in your program.
+### Opsætning af mursten variabler
+
+Det overordnede formål med denne lektion er at gøre et par linjer kode for mursten, ved hjælp af en indlejret løkke, der virker gennem en todimensional matrix. Første men vi har brug at oprette nogle variabler til at definere oplysninger om mursten som deres bredde og højde, rækker og kolonner, osv. Føj følgende linjer til din kode under de variabler, som du har tidligere anmeldt i dit program.
 
 ```javascript
 var brickRowCount = 3;
@@ -445,8 +455,9 @@ var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 ```
 
-Here we've defined the number of rows and columns of bricks , their width and height, the padding between the bricks so they won't touch each other and a top and left offset so they won't start being drawn right from the edge of the Canvas.
-We will hold all our bricks in a two-dimensional array. It will contain the brick columns (c), which in turn will contain the brick rows (r), which in turn will each contain an object containing the x and y position to paint each brick on the screen. Add the following just below your variables:
+Her har vi defineret antallet af rækker og kolonner af mursten, deres bredde og højde, polstring mellem mursten så de ikke vil røre hinanden og en top og venstre forskydning, så de ikke vil starte trækkes lige fra kanten af lærredet.
+
+Vi vil holde alle vores mursten i en todimensional matrix. Den vil indeholde kolonnerne mursten (c), som igen vil indeholde de mursten rækker (r), som igen hver indeholder et objekt, der indeholder den og holdning til at male hver mursten på skærmen. Tilføj følgende lige under dine variabler:xy
 
 ```javascript
 var bricks = [];
@@ -458,9 +469,11 @@ for(c=0; c<brickColumnCount; c++) {
 }
 ```
 
-The code above will loop through the rows and columns and create the new bricks. NOTE that the brick objects will also be used for collision detection purposes later.
-Brick drawing logic
-Now let's create a function to loop through all the bricks in the array and draw them on the screen. Our code might look like this:
+Ovenstående kode vil sløjfe igennem de rækker og kolonner og oprette nye mursten. Bemærk at mursten objekter bruges også til sammenstød afsløring formål senere.
+
+### Mursten tegning logik
+
+Lad os nu oprette en funktion til at sløjfe igennem alle murstenene i matrixen og tegne dem på skærmen. Vores kode kunne ligne dette:
 
 ```javascript
 function drawBricks() {
@@ -478,16 +491,16 @@ function drawBricks() {
 }
 ```
 
-Again, we're looping through the rows and columns to set the x and y position of each brick, and we're also painting a brick on the Canvas — size brickWidth x brickHeight — with each loop iteration. The problem is that we're painting them all in one place, at coordinates (0,0). What we need to do is include some calculations that will work out the x and y position of each brick for each loop iteration:
+Igen, vi looping gennem rækkerne og kolonnerne for at indstille den og placeringen af hver mursten, og vi også male en mursten på lærredet – størrelse x — med hver løkke iteration. Problemet er at vi maler dem alle på ét sted på koordinater. Hvad vi behøver at gøre er omfatter nogle beregninger, der vil træne på og placeringen af hver mursten for hver sløjfe iteration:xybrickWidthbrickHeight(0,0)xy
 
 ```javascript
 var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
 var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
 ```
 
-Each brickX position is worked out as brickWidth + brickPadding, multiplied by the column number, c, plus the brickOffsetLeft; the logic for the brickY is identical except that it uses the values for row number, r, brickHeight, and brickOffsetTop. Now every single brick can be placed in its correct place row and column, with padding between each brick, drawn at an offset from the left and top canvas edges.
-The final version of the drawBricks() function, after assigning the brickX and brickY values as the coordinates instead of (0,0) each time, will look like this — add this into your code below the 
-drawPaddle() function:
+Hver stilling er arbejdede som + multipliceret med kolonnenummeret, plus den; logik for den mekaniker er identiske, bortset fra at det bruger værdierne for rækkenummer,,, og. Nu hver enkelt mursten kan placeres i det korrekte sted række og kolonne, med polstring mellem hver mursten, trukket på en forskydning fra venstre og øverste lærred kanter.brickXbrickWidthbrickPaddingcbrickOffsetLeftrbrickHeightbrickOffsetTop
+
+Den endelige version af funktionen efter tildeling af og værdier som koordinater i stedet for hver gang, vil ligne indeværende — Tilføj dette til din kode under funktionen:drawBricks()brickXbrickY(0,0)drawPaddle()
 
 ```javascript
 function drawBricks() {
@@ -507,17 +520,25 @@ function drawBricks() {
 }
 ```
 
-Actually drawing the bricks
-The last thing to do in this lesson is to add a call to drawBricks() somewhere in the draw() function, preferably at the beginning, between the clearing of the Canvas and drawing the ball. Add the following just above the drawBall() call:
+### Faktisk tegning mursten
+
+Den sidste ting at gøre i denne lektion er at tilføje et opkald til et sted i funktionen, helst i begyndelsen, mellem clearing af lærredet og tegning bolden. Tilføj følgende lige over opkaldet:drawBricks()draw()drawBall()
 
 ```javascript
 drawBricks();
 ```
 
+Næste trin
+Så nu har vi mursten! Men bolden er ikke interagere med dem på alle – vil vi ændre, som vi fortsat den syvende kapitel: sammenstød afsløring.
+
 ### Del 7
 
-A collision detection function
-To kick this all off we want to create a collision detection function that will loop through all the bricks and compare every single brick's position with the ball's coordinates as each frame is drawn. For better readability of the code we will define the b variable for storing the brick object in every loop of the collision detection:
+Vi har de mursten, der vises på skærmen allerede, men spillet er stadig ikke at interessant da kuglen går igennem dem. Vi skal tænke om at tilføje sammenstød afsløring, så det kan hoppe ud murstenene og bryde dem.
+Det er vores beslutning om hvordan man gennemfører dette, selvfølgelig, men det kan være svært at beregne om bolden rører rektanglet eller ikke fordi der er ingen hjælpefunktioner i lærred for dette. Af hensyn til denne tutorial vil vi gøre det lettest muligt. Vi vil kontrollere hvis midten af bolden kolliderede med nogen af de givne mursten. Dette vil ikke give et perfekt resultat hver gang, og der er meget mere avancerede måder at gøre sammenstød afsløring, men dette vil fungere fint til at lære dig de grundlæggende begreber.
+
+### Et sammenstød afsløring funktion
+
+For at sparke det ønsker alle off vi at skabe en kollision bevægelsesdetektering funktion, der vil sløjfe igennem alle murstenene og sammenligne hver enkelt mursten position med boldens koordinater, som hvert billede tegnes. For bedre læsbarhed af koden vil vi definere variabel til at gemme objektet mursten i hver løkke af sammenstød afsløring:b
 
 ```javascript
 function collisionDetection() {
@@ -530,12 +551,12 @@ function collisionDetection() {
 }
 ```
 
-If the center of the ball is inside the coordinates of one of our bricks, we'll change the direction of the ball. For the center of the ball to be inside the brick, all four of the following statements need to be true:
-The x position of the ball is greater than the x position of the brick.
-The x position of the ball is less than the x position of the brick plus its width.
-The y position of the ball is greater than the y position of the brick.
-The y position of the ball is less than the y position of the brick plus its height.
-Let's write that down in code:
+Hvis kuglen ligger inde koordinaterne for en af vores mursten, vil vi ændre retningen af bolden. For midten af bolden til at være inde i mursten, skal alle fire af følgende udsagn være sandt:
+X-position af bolden er større end x-position af mursten.
+X-position af bolden er mindre end x-position af mursten plus dens bredde.
+Y placeringen af bolden er større end y position af mursten.
+Y placeringen af bolden er mindre end y position mursten plus dens højde.
+Lad os skrive det i kode:
 
 ```javascript
 function collisionDetection() {
@@ -550,9 +571,9 @@ function collisionDetection() {
 }
 ```
 
-Add the above block to your code, below the keyUpHandler() function.
-Making the bricks disappear after they are hit
-The above code will work as desired and the ball changes its direction. The problem is that the bricks are staying where they are. We have to figure out a way to get rid of the ones we've already hit with the ball. We can do that by adding an extra parameter to indicate whether we want to paint each brick on the screen or not. In the part of the code where we initialize the bricks, let's add a status property to each brick object. Update the following part of the code as indicated by the highlighted line:
+### Få mursten til at forsvinde, når de rammes
+
+Ovenstående kode vil arbejde som ønsket og bolden skifter sin retning. Problemet er, at mursten bor hvor de er. Vi er nødt til at regne ud en måde at slippe af dem, vi allerede har ramt med bolden. Vi kan gøre ved at tilføje en ekstra parameter til at angive, om vi ønsker at male hver mursten på skærmen eller ej. I del af den kode, hvor vi initialisere mursten, lad os tilføje en ejendom til hver mursten objekt. Opdatere den følgende del af koden, som angivet af den fremhævede linje:status
 
 ```javascript
 var bricks = [];
@@ -564,7 +585,7 @@ for(c=0; c<brickColumnCount; c++) {
 }
 ```
 
-Next we'll check the value of each brick's status property in the drawBricks() function before drawing it — if status is 1, then draw it, but if it's 0, then it was hit by the ball and we don't want it on the screen anymore. Update your drawBricks() function as follows:
+Næste vi vil kontrollere værdien af hver mursten ejendom i funktionen før tegning det — hvis er, så tegner det, men hvis det er, så det blev ramt af bolden og vi ikke længere vil have det på skærmen. Opdater din funktion som følger:statusdrawBricks()status10drawBricks()
 
 ```javascript
 function drawBricks() {
@@ -586,8 +607,9 @@ function drawBricks() {
 }
 ```
 
-Tracking and updating the status in the collision detection function
-Now we need to involve the brick status property in the collisionDetection() function: if the brick is active (its status is 1) we will check whether the collision happens; if a collision does occur we'll set the status of the given brick to 0 so it won't be painted on the screen. Update your collisionDetection() function as indicated below:
+### Sporing og opdatere status i sammenstød afsløring funktion
+
+Nu skal vi inddrage egenskaben mursten i funktionen: hvis mursten er aktive (dens status er) vil vi kontrollere, om kollisionen sker; Hvis en kollision opstÃ ¥ vi vil angive status for den givne mursten til, så det ikke vil være malet på skærmen. Opdater din funktion som angivet nedenfor:statuscollisionDetection()10collisionDetection()
 
 ```javascript
 function collisionDetection() {
@@ -605,23 +627,28 @@ function collisionDetection() {
 }
 ```
 
-Activating our collision detection
-The last thing to do is to add a call to the collisionDetection() function to our main draw() function. Add the following line to the draw() function, just below the drawPaddle() call:
+### Aktivering af vores sammenstød afsløring
+
+Den sidste ting at gøre er at tilføje et kald til funktionen til vores vigtigste funktion. Tilføj følgende linje til funktionen, lige under opkaldet:collisionDetection()draw()draw()drawPaddle()
 
 ```javascript
 collisionDetection();
 ```
 
+Næste trin
+Vi helt sikkert får der nu; Lad os gå videre! I det ottende kapitel vil vi se på hvordan man kan spore scoren og vinde.
+
 ### Del 8
 
-Counting the score
-If you can see your score throughout the game, eventually you can impress your friends. You need a variable to record the score. Add the following into your JavaScript, after the rest of your variables:
+### Tælle score
+
+Hvis du kan se din score hele spillet, kan til sidst du imponere dine venner. Du har brug for en variabel til at optage scoren. Tilføj følgende i din JavaScript, efter resten af dine variabler:
 
 ```javascript
 var score = 0;
 ```
 
-You also need a drawScore() function, to create and update the score display. Add the following after the collisionDetection() function:
+Du skal også en funktion til at oprette og opdatere visningen score. Tilføj følgende efter funktion:drawScore()collisionDetection()
 
 ```javascript
 function drawScore() {
@@ -631,8 +658,8 @@ function drawScore() {
 }
 ```
 
-Drawing text on a canvas is similar to drawing a shape. The font definition looks exactly like the one in CSS — you can set the size and font type in the font() method. Then use fillStyle() to set the color of the font and fillText() to set the actual text that will be placed on the canvas, and where it will be placed. The first parameter is the text itself — the code above shows the current number of points — and the last two parameters are the coordinates where the text will be placed on the canvas.
-To award a score each time a brick is hit, add a line to the collisionDetection() function to increment the value of the score variable each time a collision is detected. Add the following highlighted line to your code:
+Tegning tekst på et lærred er lig tegne en figur. Den skrifttype definition ser ud præcis som i CSS – du kan angive den størrelse og skrifttype type i metoden skrifttype() . Brug derefter fillStyle() til at angive farven på den skrifttype og fillText() til at angive den faktiske tekst, som vil blive placeret på lærredet, og hvor det skal placeres. Den første parameter er selve teksten — den kode ovenfor viser det aktuelle antal point – og de sidste to parametre er koordinaterne hvor teksten vil blive placeret på lærredet.
+For at tildele en score hver gang en mursten er ramt, skal du tilføje en linje til funktion at forøge værdien af variablen score hver gang en kollision er opdaget. Tilføj den følgende markerede linje til din kode:collisionDetection()
 
 ```javascript
 function collisionDetection() {
@@ -651,14 +678,15 @@ function collisionDetection() {
 }
 ```
 
-Calling drawScore() from the draw() function keeps the score up to date with every new frame — add the following line inside draw(), just below the drawPaddle() call:
+Kald af funktionen holder score ajour med hver ny ramme — Tilføj følgende linje inde, lige under opkaldet:drawScore()draw()draw()drawPaddle()
 
 ```javascript
 drawScore();
 ```
 
-Displaying a winning message when all bricks have been destroyed
-Collecting the points works well, but you won't be adding them forever — what about when all the bricks have been destroyed? It's the main purpose of the game after all, so you should display a winning message if all available points have been collected. Add the following highlighted section into your collisionDetection() function:
+### Vise en vindende besked, når alle mursten er blevet ødelagt.
+
+Indsamle punkterne, der fungerer godt, men du vil ikke være tilføjer dem for evigt – hvad med når alle brikkerne er blevet ødelagt? Det er det vigtigste formål med spillet, så du skal vise en vindende besked, hvis alle tilgængelige punkter er blevet indsamlet. Tilføj den følgende markerede afsnit i din funktion:collisionDetection()
 
 ```javascript
 function collisionDetection() {
@@ -681,19 +709,24 @@ function collisionDetection() {
 }
 ```
 
-Thanks to this, your users can actually win the game when they destroy all the bricks, which is quite important when it comes to games. The document.location.reload() function reloads the page and starts the game again once the alert button is clicked.
+Takket være dette, kan dine brugere faktisk vinder spillet, når de ødelægge alle murstenene, der er ret vigtigt, når det kommer til spil. Funktionen genindlæser siden og starter spillet igen, når der klikkes på knappen alarm.document.location.reload()
+
+Næste trin
+Spillet ser temmelig godt på dette punkt. I næste lektion vil du udvide spillets appel ved at tilføje mus kontrol.
 
 ### Del 9
 
-Listening for mouse movement
-Listening for mouse movement is even easier than listening for key presses: all we need is the listener for the mousemove event. Add the following line near an other event listeners, just below the keyup event:
+### Lytte til musen bevægelse
+
+Lytte til musen er endnu nemmere end at lytte til tastetryk: alt hvad vi behøver er lytteren til begivenheden. Tilføj følgende linje i nærheden af en anden begivenhed lyttere, lige under den:mousemovekeyup event
 
 ```javascript
 document.addEventListener("mousemove", mouseMoveHandler, false);
 ```
 
-Anchoring the paddle movement to the mouse movement
-We can update the paddle position based on the pointer coordinates — the following handler function will do exactly that. Add the following function to your code, below the previous line you added:
+### Forankring padle bevægelse til musen bevægelse
+
+Vi kan opdatere pagaj holdning baseret på markøren koordinater-funktionen følgende handleren vil gøre netop dette. Tilføj følgende funktion til din kode, under den foregående linje du tilføjede:
 
 ```javascript
 function mouseMoveHandler(e) {
@@ -704,19 +737,25 @@ function mouseMoveHandler(e) {
 }
 ```
 
-In this function we first work out a relativeX value,which is equal to the horizontal mouse position in the viewport (e.clientX) minus the distance between the left edge of the canvas and left edge of the viewport (canvas.offsetLeft) — effectively this is equal to the distance between the canvas left edge and the mouse pointer. If the relative X pointer position is greater than zero and lower than the Canvas width, the pointer is within the Canvas boundaries, and the paddleX position (anchored on the left edge of the paddle) is set to the relativeX value minus half the width of the paddle, so that the movement will actually be relative to the middle of the paddle.
-The paddle will now follow the position of the mouse cursor, but since we're restricting the movement to the size of the Canvas, it won't disappear completely off either side.
+I denne funktion vi først udarbejde en værdi, som er lig med vandrette mus holdning i viewport () minus afstanden mellem venstre kant af lærredet og venstre kant af viewport () — effektivt det er lig med afstanden mellem lærred venstre kant en d musemarkøren. Hvis relative X pointer holdning er større end nul og mindre end lærred bredden, markøren er inden for lærredsgrænserne, og positionen (forankret på den venstre kant af pagajen) er angivet til værdien minus halvdelen af bredden af pagajen , således at bevægelsen vil faktisk være i forhold til midten af pagajen.relativeXe.clientXcanvas.offsetLeftpaddleXrelativeX
+Padle vil nu følge placeringen af musen, men da vi begrænse bevægelse til størrelsen af lærredet, det vil ikke forsvinde helt fra begge sider.
+
+Næste trin
+Nu har vi en komplet spil vi vil afslutte vores serier af lektioner med nogle flere små tweaks — prikken over op.
 
 ### Del 10
 
-Giving the player some lives
-Implementing lives is quite straightforward. Let's first add a variable to store the number of lives in the same place where we declared our other variables:
+Der er altid plads til forbedringer i ethvert spil, vi skriver. For eksempel, kan vi tilbyde mere end ét liv til spilleren. De kunne gøre en fejl eller to og stadig være i stand til at afslutte spillet. Vi kunne også forbedre vores kode rendering.
+
+### Giver spilleren nogle liv
+
+Gennemføre liv er helt ligetil. Lad os først tilføje en variabel til at gemme antallet af liv i det samme sted, hvor vi erklærede vores andre variabler:
 
 ```javascript
 var lives = 3;
 ```
 
-Drawing the life counter looks almost the same as drawing the score counter — add the following function to your code, below the drawScore() function:
+Tegning tælleren liv ser næsten det samme som tegning score tæller – tilføje følgende funktion til din kode, under funktionen:drawScore()
 
 ```javascript
 function drawLives() {
@@ -726,14 +765,14 @@ function drawLives() {
 }
 ```
 
-Instead of ending the game immediately, we will decrease the number of lives until they are no longer available. We can also reset the ball and the paddle positions when the player begins with their next life. So, in the draw() function replace the following two lines:
+Stedet for at afslutte spillet straks, vil vi reducere antallet af liv, indtil de er ikke længere tilgængelig. Vi kan også nulstille bolden og pagaj positioner, når spilleren begynder med deres næste liv. Så, i funktionen erstatte den næste to linier:draw()
 
 ```javascript
 alert("GAME OVER");
 document.location.reload();
 ```
 
-With this, we can add slightly more complex logic to it as given below:
+Med dette, kan vi tilføje lidt mere kompleks logik at det som angivet nedenfor:
 
 ```javascript
 lives--;
@@ -750,31 +789,34 @@ else {
 }
 ```
 
-Now, when the ball hits the bottom edge of the screen, we're subtracting one life from the lives variable. If there are no lives left, the game is lost; if there are still some lives left, then the position of the ball and the paddle are reset, along with the movement of the ball.
-Rendering the lives display
-Now you need to add a call to drawLives() inside the draw() function and add it below the drawScore() call.
+Nu, når bolden rammer den nederste kant af skærmen, vi fratrækker et liv fra variablen. Hvis der er ingen liv tilbage, er spillet tabt; Hvis der er stadig nogle liv venstre, derefter placeringen af bolden og padle nulstilles, sammen med bevægelsen af bolden.lives
+
+### Rendering liv display
+
+Nu skal du tilføje et kald til funktionen og tilføje det under opkaldet.drawLives()draw()drawScore()
 
 ```javascript
 drawLives();
 ```
 
-Improving rendering with requestAnimationFrame()
-Now let's work on something that is not connected to the game mechanics, but to the way it is being rendered. requestAnimationFrame helps the browser render the game better than the fixed framerate we currently have implemented using setInterval(). Replace the following line:
+Forbedre præstationen med requestAnimationFrame()
+Nu lad os arbejde på noget, der ikke er forbundet med spillets mekanik, men måde, at det gengives. requestAnimationFrame hjælper browseren gøre spillet bedre end den faste framerate, vi i øjeblikket har implementeret ved hjælp af setInterval (). Erstatte den følgende linje:
 
 ```javascript
 setInterval(draw, 10);
 
-with simply:
+//med blot:
+
 draw();
 ```
 
-Then, at the very bottom of the draw() function (just before the closing curly brace), add in the following line, which causes the draw() function to call itself over and over again:
+Derefter, på bunden af funktionen (lige før den afsluttende klammeparentes), tilføje i den følgende linje, som medfører, at funktionen til at kalde sig selv igen og igen:draw()draw()
 
 ```javascript
 requestAnimationFrame(draw);
 ```
 
-The draw() function is now getting executed again and again within a requestAnimationFrame() loop, but instead of the fixed 10 milliseconds frame rate, we are giving control of the framerate back to the browser. It will sync the framerate accordingly and render the shapes only when needed. This produces a more efficient, smoother animation loop than the older setInterval() method.
+Funktionen er nu at få udført igen inden for en loop, men i stedet for den faste 10 millisekunder frame rate, vi giver kontrol over frameraten tilbage til browseren. Det vil synkronisere frameraten i overensstemmelse hermed og render figurer, når det behøves. Dette giver en mere effektiv, mere smidig animation løkke end den ældre metode.draw()requestAnimationFrame()setInterval()
 
 ## ================================
 
@@ -954,3 +996,11 @@ function draw() {
 
 draw();
 ```
+
+### Game over - for nu!
+
+Du har afsluttet alle lektionerne - tillykke! Ved dette punkt, bør du nu vide grundlæggende i lærred manipulation og logikken bag simple 2D spil. Nu er det et godt tidspunkt at lære nogle rammer og fortsætte spillets udvikling. Du kan tjekke ud denne serie modstykke, 2D breakout spil ved hjælp af Phaser eller Cyber Orb bygget i Phaser tutorial. Du kan også se gennem spil sektion på MDN for inspiration og mere viden.
+
+Du kan også gå tilbage til denne tutorial serie indeksside.
+
+Have det sjovt med kodning!
